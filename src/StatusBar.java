@@ -3,7 +3,7 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-public class Gamebar extends JPanel {
+public class StatusBar extends JPanel {
     private JLabel score;
     private JLabel smiley;
     private JLabel mines;
@@ -22,7 +22,7 @@ public class Gamebar extends JPanel {
         }
     }
 
-    public Gamebar(){
+    public StatusBar(){
 
         ImageIcon bomb = new ImageIcon("Images/bomb.png", "Bomb placeholder for smile");
         //Button text

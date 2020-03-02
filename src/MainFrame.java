@@ -3,32 +3,22 @@ import java.awt.*;
 
 public class MainFrame extends JFrame {
 
-    private Toolbar toolbar;
-    private Gamebar gamebar;
-    private TextPanel textPanel;
+    private Toolbar toolBar;
+    private StatusBar statusBar;
 
     public MainFrame (){
         super("Minesweeper");
 
         setLayout(new BorderLayout());
-        toolbar = new Toolbar();
-        textPanel = new TextPanel();
-        gamebar = new Gamebar();
+        toolBar = new Toolbar();
+        statusBar = new StatusBar();
         Board Minesweeper = new Board();
         Minesweeper.visualizeComponents();
 
-        toolbar.setStringListener(new StringListener() {
-            @Override
-            public void textEmitted(String text) {
-                textPanel.appendText(text);
-            }
-        });
-
         //adding components to layout
-        add(toolbar, BorderLayout.NORTH);
+        add(toolBar, BorderLayout.NORTH);
         add(Minesweeper, BorderLayout.CENTER);
-        add(gamebar, BorderLayout.SOUTH);
-
+        add(statusBar, BorderLayout.SOUTH);
 
         //stop the program on close
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
