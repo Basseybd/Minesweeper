@@ -1,8 +1,6 @@
+import java.awt.*;
 import java.util.Random;
 
-import java.awt.Dimension;
-import java.awt.Graphics;
-import java.awt.Image;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.Random;
@@ -22,6 +20,7 @@ public class Board extends JPanel {
 	int totalCells=rows*cols;
 	int mines=40;
 	int minesLeft=mines;
+	private JLabel cell;
 	Random rand;
 	
 	public Board() {
@@ -220,7 +219,24 @@ public class Board extends JPanel {
 	}
 	
 	public void visualizeComponents(){
-		
+		setPreferredSize(new Dimension(rows, cols));
+		setLayout(new GridBagLayout());
+		GridBagConstraints gc = new GridBagConstraints();
+		gc.gridx = 0;
+		gc.gridy = 0;
+		gc.weightx = 1;
+		gc.weighty = 1;
+		gc.fill = GridBagConstraints.BOTH;
+
+		for(int i=0;i<totalCells;i++) {
+			gc.gridx = gc.gridx + 1;
+			cell = new JLabel(String.valueOf(board[i]));
+			add(cell, gc);
+			if((i+1)%cols==0) {
+				gc.gridx = 0;
+				gc.gridy = gc.gridy + 1;
+			}
+		}
 	}
 
 	public void printBoard() {

@@ -11,11 +11,11 @@ public class MainFrame extends JFrame {
         super("Minesweeper");
 
         setLayout(new BorderLayout());
-
         toolbar = new Toolbar();
         textPanel = new TextPanel();
         gamebar = new Gamebar();
         Board Minesweeper = new Board();
+        Minesweeper.visualizeComponents();
 
         toolbar.setStringListener(new StringListener() {
             @Override
@@ -26,7 +26,7 @@ public class MainFrame extends JFrame {
 
         //adding components to layout
         add(toolbar, BorderLayout.NORTH);
-        add(textPanel, BorderLayout.CENTER);
+        add(Minesweeper, BorderLayout.CENTER);
         add(gamebar, BorderLayout.SOUTH);
 
 

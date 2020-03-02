@@ -7,13 +7,14 @@ public class Gamebar extends JPanel {
     private JLabel score;
     private JLabel smiley;
     private JLabel mines;
-    private StringListener textListener;
 
-    //TODO FIX THE ICONS
-    // Returns an ImageIcon, or null if the path was invalid.
-    protected ImageIcon createImageIcon(String path, String description) {
+    //TODO fix this
+    /** Returns an ImageIcon, or null if the path was invalid. */
+    protected ImageIcon createImageIcon(String path,
+                                        String description) {
         java.net.URL imgURL = getClass().getResource(path);
         if (imgURL != null) {
+            System.out.println("found find file: " + path);
             return new ImageIcon(imgURL, description);
         } else {
             System.err.println("Couldn't find file: " + path);
@@ -21,13 +22,12 @@ public class Gamebar extends JPanel {
         }
     }
 
-    ImageIcon smileyicon = new ImageIcon("Images/blank.png", "Placeholder 'blank' smiley");
-
     public Gamebar(){
 
+        ImageIcon bomb = new ImageIcon("Images/bomb.png", "Bomb placeholder for smile");
         //Button text
         score = new JLabel("score");
-        smiley = new JLabel("----Placeholder 'blank' smiley----",smileyicon,JLabel.CENTER);
+        smiley = new JLabel(bomb);
         mines = new JLabel("mines");
 
         //flow layout for the tool bar
