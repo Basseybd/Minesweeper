@@ -1,6 +1,16 @@
-import java.util.Random; 
+import java.util.Random;
 
-public class Board {
+import java.awt.Dimension;
+import java.awt.Graphics;
+import java.awt.Image;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.util.Random;
+import javax.swing.ImageIcon;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+
+public class Board extends JPanel {
 	int EMPTY_UNCLICKED_CELL=0;
 	int EMPTY_CLICKED_CELL=10;
 	int UNCLICKED_MINE_CELL=-1;
@@ -209,7 +219,10 @@ public class Board {
 		}
 	}
 	
-	
+	public void visualizeComponents(){
+		
+	}
+
 	public void printBoard() {
 		for(int i=0;i<totalCells;i++) {
 			System.out.print(board[i]);
