@@ -206,11 +206,12 @@ public class Board extends JPanel {
 	
 	public void click(int coord) {
 		if(board[coord]==UNCLICKED_MINE_CELL) {
-			for(int x:board) {
-				if(x<10&&x>0)
-					x+=CLICK;
-				else if(x<0)
-					x-=CLICK;
+			
+			for(int i=0;i<rows*cols;i++) {
+				if(board[i]<10&&board[i]>=0)
+					board[i]+=CLICK;
+				else if(board[i]<0)
+					board[i]-=CLICK;
 			}
 			//GAME OVER
 		}
@@ -244,7 +245,7 @@ public class Board extends JPanel {
 				curr = new JButton(ic);
 				curr.addActionListener(new ActionListener() { 
 					  public void actionPerformed(ActionEvent e) { 
-						    fieldClick(coord);
+						    fieldClick(coord,e);
 						  } 
 						} );
 			}
@@ -311,7 +312,8 @@ public class Board extends JPanel {
 		}
 	}
 	
-	public void fieldClick(int i) {
+	public void fieldClick(int i, ActionEvent e) {
+		
 		click(i);
 		visualizeComponents();
 		//repaint();
