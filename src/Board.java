@@ -5,6 +5,7 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.Random;
 import javax.swing.ImageIcon;
+import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
@@ -219,23 +220,80 @@ public class Board extends JPanel {
 	}
 	
 	public void visualizeComponents(){
-		setPreferredSize(new Dimension(rows, cols));
+		/*setPreferredSize(new Dimension(rows, cols));
 		setLayout(new GridBagLayout());
 		GridBagConstraints gc = new GridBagConstraints();
 		gc.gridx = 0;
 		gc.gridy = 0;
 		gc.weightx = 1;
 		gc.weighty = 1;
-		gc.fill = GridBagConstraints.BOTH;
-
+		gc.fill = GridBagConstraints.BOTH;*/
+		setLayout(new GridLayout(rows, cols));
+		JButton curr= new JButton();
 		for(int i=0;i<totalCells;i++) {
-			gc.gridx = gc.gridx + 1;
+			if(board[i]<10&&board[i]>-2) {
+				ImageIcon ic = new ImageIcon("./Images/unclicked.png");
+				curr = new JButton(ic);
+			}
+			else if(board[i]==10) {
+				ImageIcon ic = new ImageIcon("./Images/blank.png");
+				curr = new JButton(ic);
+				curr.setEnabled(false);
+			}
+			else if(board[i]==11) {
+				ImageIcon ic = new ImageIcon("./Images/1.png");
+				curr = new JButton(ic);
+				curr.setEnabled(false);
+			}
+			else if(board[i]==12) {
+				ImageIcon ic = new ImageIcon("./Images/2.png");
+				curr = new JButton(ic);
+				curr.setEnabled(false);
+			}
+			else if(board[i]==13) {
+				ImageIcon ic = new ImageIcon("./Images/3.png");
+				curr = new JButton(ic);
+				curr.setEnabled(false);
+			}
+			else if(board[i]==14) {
+				ImageIcon ic = new ImageIcon("./Images/4.png");
+				curr = new JButton(ic);
+				curr.setEnabled(false);
+			}
+			else if(board[i]==15) {
+				ImageIcon ic = new ImageIcon("./Images/5.png");
+				curr = new JButton(ic);
+				curr.setEnabled(false);
+			}
+			else if(board[i]==16) {
+				ImageIcon ic = new ImageIcon("./Images/6.png");
+				curr = new JButton(ic);
+				curr.setEnabled(false);
+			}
+			else if(board[i]==17) {
+				ImageIcon ic = new ImageIcon("./Images/7.png");
+				curr = new JButton(ic);
+				curr.setEnabled(false);
+			}
+			else if(board[i]==18) {
+				ImageIcon ic = new ImageIcon("./Images/8.png");
+				curr = new JButton(ic);
+				curr.setEnabled(false);
+			}
+			else if(board[i]==-11) {
+				ImageIcon ic = new ImageIcon("./Images/bomb.png");
+				curr = new JButton(ic);
+				curr.setEnabled(false);
+			}
+			add(curr);
+			/*gc.gridx = gc.gridx + 1;
 			cell = new JLabel(String.valueOf(board[i]));
-			add(cell, gc);
+			//add(cell, gc);
+			add(curr,gc);
 			if((i+1)%cols==0) {
 				gc.gridx = 0;
 				gc.gridy = gc.gridy + 1;
-			}
+			}*/
 		}
 	}
 

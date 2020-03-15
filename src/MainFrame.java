@@ -20,9 +20,20 @@ public class MainFrame extends JFrame {
         add(Minesweeper, BorderLayout.CENTER);
         add(statusBar, BorderLayout.SOUTH);
 
+        //add smiley face button
+        JButton smiley = new JButton(new ImageIcon("./Images/smile.png"));
+        smiley.setRolloverEnabled(true);
+        //smiley.addActionListener();
+        smiley.setRolloverIcon(new ImageIcon("./Images/shock.png"));
+        toolBar.add(smiley);//,BorderLayout.NORTH);
+        
+        
         //stop the program on close
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setSize(600,500);
+        setSize(800,700);
+        ImageIcon i = new ImageIcon("./Images/unclicked.png");
+        
+        System.out.print(i.getIconWidth());
         setVisible(true);
     }
 }
