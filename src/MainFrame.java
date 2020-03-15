@@ -19,14 +19,6 @@ public class MainFrame extends JFrame {
         add(toolBar, BorderLayout.NORTH);
         add(Minesweeper, BorderLayout.CENTER);
         add(statusBar, BorderLayout.SOUTH);
-
-        //add smiley face button
-        JButton smiley = new JButton(new ImageIcon("./Images/smile.png"));
-        smiley.setRolloverEnabled(true);
-        //smiley.addActionListener();
-        smiley.setRolloverIcon(new ImageIcon("./Images/shock.png"));
-        toolBar.add(smiley);//,BorderLayout.NORTH);
-        
         
         //stop the program on close
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);

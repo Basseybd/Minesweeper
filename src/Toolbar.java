@@ -12,7 +12,6 @@ public class Toolbar extends JPanel implements ActionListener {
     public Toolbar(){
         //Button text
         difficulty = new JButton("Set difficulty");
-        highscores = new JButton("High Scores");
         restart = new JButton("Restart");
 
         //flow layout for the tool bar
@@ -20,12 +19,18 @@ public class Toolbar extends JPanel implements ActionListener {
         setLayout(new FlowLayout());
 
         add(difficulty);
-        add(highscores);
+
+        //add smiley face button
+        JButton smiley = new JButton(new ImageIcon("./Images/smile.png"));
+        smiley.setRolloverEnabled(true);
+        //smiley.addActionListener();
+        smiley.setRolloverIcon(new ImageIcon("./Images/shock.png"));
+        add(smiley);
+
         add(restart);
 
         //add listeners to the button
         difficulty.addActionListener(this);
-        highscores.addActionListener(this);
         restart.addActionListener(this);
 
     }
