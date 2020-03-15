@@ -1,3 +1,5 @@
 Minesweeper.iml
 .idea/
 /.metadata/
+.classpath
+.project
