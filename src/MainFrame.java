@@ -30,7 +30,7 @@ public class MainFrame extends JFrame {
         
         //stop the program on close
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setSize(800,700);
+        setSize(Minesweeper.getsize()*40,700);
         ImageIcon i = new ImageIcon("./Images/unclicked.png");
         
         System.out.print(i.getIconWidth());

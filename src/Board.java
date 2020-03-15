@@ -1,4 +1,5 @@
 import java.awt.*;
+import java.awt.event.*;
 import java.util.Random;
 
 import java.awt.event.MouseAdapter;
@@ -23,6 +24,8 @@ public class Board extends JPanel {
 	int minesLeft=mines;
 	private JLabel cell;
 	Random rand;
+	
+	public int getsize() {return cols;}
 	
 	public Board() {
 		rand = new Random();
@@ -211,29 +214,39 @@ public class Board extends JPanel {
 			}
 			//GAME OVER
 		}
-		else if(board[coord]>0&&board[coord]<10) {
+		else if(board[coord]>=0&&board[coord]<10) {
+			board[coord]+=CLICK;
+			/*
 			board[coord]+=CLICK;
 			if(board[coord]==EMPTY_CLICKED_CELL) {
 				uncoverFreeCells(coord);
-			}
+			}*/
 		}
 	}
+	/*@Override
+	public void paintComponent(Graphics g){
+		super.paintComponent(g);
+		visualizeComponents();
+	}*/
 	
 	public void visualizeComponents(){
-		/*setPreferredSize(new Dimension(rows, cols));
-		setLayout(new GridBagLayout());
-		GridBagConstraints gc = new GridBagConstraints();
-		gc.gridx = 0;
-		gc.gridy = 0;
-		gc.weightx = 1;
-		gc.weighty = 1;
-		gc.fill = GridBagConstraints.BOTH;*/
+		System.out.print(" ");
+		printBoard();
+		this.removeAll();
+		this.revalidate();
+		this.repaint();
 		setLayout(new GridLayout(rows, cols));
 		JButton curr= new JButton();
 		for(int i=0;i<totalCells;i++) {
+			int coord=i;
 			if(board[i]<10&&board[i]>-2) {
 				ImageIcon ic = new ImageIcon("./Images/unclicked.png");
 				curr = new JButton(ic);
+				curr.addActionListener(new ActionListener() { 
+					  public void actionPerformed(ActionEvent e) { 
+						    fieldClick(coord);
+						  } 
+						} );
 			}
 			else if(board[i]==10) {
 				ImageIcon ic = new ImageIcon("./Images/blank.png");
@@ -241,6 +254,7 @@ public class Board extends JPanel {
 				curr.setEnabled(false);
 			}
 			else if(board[i]==11) {
+				
 				ImageIcon ic = new ImageIcon("./Images/1.png");
 				curr = new JButton(ic);
 				curr.setEnabled(false);
@@ -296,13 +310,26 @@ public class Board extends JPanel {
 			}*/
 		}
 	}
+	
+	public void fieldClick(int i) {
+		click(i);
+		visualizeComponents();
+		//repaint();
+	}
 
 	public void printBoard() {
 		for(int i=0;i<totalCells;i++) {
-			System.out.print(board[i]);
+			System.out.print(board[i]+" ");
 			if((i+1)%cols==0) {
 				System.out.print("\n");
 			}
 		}
 	}
 }
+
+/*class MyActionListener implements ActionListener
+{
+	public void actionPerformed (ActionEvent e)
+	{
+	}
+}*/
