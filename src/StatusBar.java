@@ -7,6 +7,7 @@ public class StatusBar extends JPanel {
     private JLabel score;
     private JLabel smiley;
     private JLabel mines;
+    public int m = 40;
 
     //TODO fix this
     /** Returns an ImageIcon, or null if the path was invalid. */
@@ -26,9 +27,9 @@ public class StatusBar extends JPanel {
 
         ImageIcon bomb = new ImageIcon("Images/bomb.png", "Bomb placeholder for smile");
         //Button text
-        score = new JLabel("score");
+        score = new JLabel("Score");
         smiley = new JLabel(bomb);
-        mines = new JLabel("mines");
+        mines = new JLabel("Mines: "+m);
 
         //flow layout for the tool bar
         setLayout(new FlowLayout());

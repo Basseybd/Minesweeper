@@ -1,4 +1,5 @@
 import java.awt.*;
+import java.util.ArrayList;
 import java.awt.event.*;
 import java.util.Random;
 
@@ -17,6 +18,7 @@ public class Board extends JPanel {
 	int CLICKED_MINE_CELL=-10;
 	int CLICK = 10;
 	int[] board;
+	ArrayList<Integer> flagged;
 	int rows=16;
 	int cols=16;
 	int totalCells=rows*cols;
@@ -30,6 +32,7 @@ public class Board extends JPanel {
 	public Board() {
 		rand = new Random();
 		initializeBoard();
+		flagged = new ArrayList<Integer>();
 	}
 	
 	public int[] getBoard() {
@@ -89,7 +92,7 @@ public class Board extends JPanel {
                     }
                 }
                 //top right
-                if (rand_int < (cols - 1)) {
+                if (col < (cols - 1)) {
                 	curr = rand_int+1-cols;
                     if (curr >= 0) {
                         if (board[curr] != UNCLICKED_MINE_CELL) {
@@ -243,8 +246,8 @@ public class Board extends JPanel {
 			if(board[i]<10&&board[i]>-2) {
 				ImageIcon ic = new ImageIcon("./Images/unclicked.png");
 				curr = new JButton(ic);
-				curr.addActionListener(new ActionListener() { 
-					  public void actionPerformed(ActionEvent e) { 
+				curr.addMouseListener(new MouseAdapter() { 
+					public void mouseClicked(MouseEvent e) { 
 						    fieldClick(coord,e);
 						  } 
 						} );
@@ -300,6 +303,16 @@ public class Board extends JPanel {
 				curr = new JButton(ic);
 				curr.setEnabled(false);
 			}
+			
+			if(flagged.contains(i)) {
+				curr.setIcon(new ImageIcon("./Images/flagged.png"));
+				/*curr.addMouseListener(new MouseAdapter() { 
+					public void mouseClicked(MouseEvent e) { 
+						    fieldClick(coord,e);
+						  } 
+						} );*/
+			}
+			
 			add(curr);
 			/*gc.gridx = gc.gridx + 1;
 			cell = new JLabel(String.valueOf(board[i]));
@@ -312,11 +325,26 @@ public class Board extends JPanel {
 		}
 	}
 	
-	public void fieldClick(int i, ActionEvent e) {
-		
-		click(i);
-		visualizeComponents();
-		//repaint();
+	public void fieldClick(int i, MouseEvent e) {
+		if(e.getButton()==3) {
+			if(flagged.contains(i)) {
+				flagged.remove(new Integer(i));
+				//TODO: adjust m in status bar by -=1
+			}
+			else {
+				flagged.add(i);
+				//TODO: adjust m in status bar by +=1
+			}
+			visualizeComponents();
+		}
+		else {
+			if(!flagged.contains(i))
+			{
+				click(i);
+				visualizeComponents();
+				//repaint();
+			}
+		}
 	}
 
 	public void printBoard() {
