@@ -25,6 +25,7 @@ public class Board extends JPanel {
 	int mines=40;
 	int minesLeft=mines;
 	private JLabel cell;
+	boolean gameover = false;
 	Random rand;
 	
 	public int getsize() {return cols;}
@@ -33,6 +34,7 @@ public class Board extends JPanel {
 		rand = new Random();
 		initializeBoard();
 		flagged = new ArrayList<Integer>();
+		setBackground(new Color(185,185,185)); 
 	}
 	
 	public int[] getBoard() {
@@ -211,27 +213,19 @@ public class Board extends JPanel {
 		if(board[coord]==UNCLICKED_MINE_CELL) {
 			
 			for(int i=0;i<rows*cols;i++) {
+				gameover = true;
 				if(board[i]<10&&board[i]>=0)
 					board[i]+=CLICK;
 				else if(board[i]<0)
 					board[i]-=CLICK;
 			}
+			
 			//GAME OVER
 		}
 		else if(board[coord]>=0&&board[coord]<10) {
 			board[coord]+=CLICK;
-			/*
-			board[coord]+=CLICK;
-			if(board[coord]==EMPTY_CLICKED_CELL) {
-				uncoverFreeCells(coord);
-			}*/
 		}
 	}
-	/*@Override
-	public void paintComponent(Graphics g){
-		super.paintComponent(g);
-		visualizeComponents();
-	}*/
 	
 	public void visualizeComponents(){
 		System.out.print(" ");
@@ -255,64 +249,60 @@ public class Board extends JPanel {
 			else if(board[i]==10) {
 				ImageIcon ic = new ImageIcon("./Images/blank.png");
 				curr = new JButton(ic);
-				curr.setEnabled(false);
+				//curr.setEnabled(false);
 			}
 			else if(board[i]==11) {
 				
 				ImageIcon ic = new ImageIcon("./Images/1.png");
 				curr = new JButton(ic);
-				curr.setEnabled(false);
+				//curr.setEnabled(false);
 			}
 			else if(board[i]==12) {
 				ImageIcon ic = new ImageIcon("./Images/2.png");
 				curr = new JButton(ic);
-				curr.setEnabled(false);
+				//curr.setEnabled(false);
 			}
 			else if(board[i]==13) {
 				ImageIcon ic = new ImageIcon("./Images/3.png");
 				curr = new JButton(ic);
-				curr.setEnabled(false);
+				//curr.setEnabled(false);
 			}
 			else if(board[i]==14) {
 				ImageIcon ic = new ImageIcon("./Images/4.png");
 				curr = new JButton(ic);
-				curr.setEnabled(false);
+				//curr.setEnabled(false);
 			}
 			else if(board[i]==15) {
 				ImageIcon ic = new ImageIcon("./Images/5.png");
 				curr = new JButton(ic);
-				curr.setEnabled(false);
+				//curr.setEnabled(false);
 			}
 			else if(board[i]==16) {
 				ImageIcon ic = new ImageIcon("./Images/6.png");
 				curr = new JButton(ic);
-				curr.setEnabled(false);
+				//curr.setEnabled(false);
 			}
 			else if(board[i]==17) {
 				ImageIcon ic = new ImageIcon("./Images/7.png");
 				curr = new JButton(ic);
-				curr.setEnabled(false);
+				//curr.setEnabled(false);
 			}
 			else if(board[i]==18) {
 				ImageIcon ic = new ImageIcon("./Images/8.png");
 				curr = new JButton(ic);
-				curr.setEnabled(false);
+				//curr.setEnabled(false);
 			}
 			else if(board[i]==-11) {
 				ImageIcon ic = new ImageIcon("./Images/bomb.png");
 				curr = new JButton(ic);
-				curr.setEnabled(false);
+				//curr.setEnabled(false);
 			}
 			
 			if(flagged.contains(i)) {
 				curr.setIcon(new ImageIcon("./Images/flagged.png"));
-				/*curr.addMouseListener(new MouseAdapter() { 
-					public void mouseClicked(MouseEvent e) { 
-						    fieldClick(coord,e);
-						  } 
-						} );*/
 			}
-			
+			if(gameover)
+				curr.setEnabled(false);
 			add(curr);
 			/*gc.gridx = gc.gridx + 1;
 			cell = new JLabel(String.valueOf(board[i]));
@@ -326,23 +316,25 @@ public class Board extends JPanel {
 	}
 	
 	public void fieldClick(int i, MouseEvent e) {
-		if(e.getButton()==3) {
-			if(flagged.contains(i)) {
-				flagged.remove(new Integer(i));
-				//TODO: adjust m in status bar by -=1
+		if(board[i]>-2&&board[i]<10) {
+			if(e.getButton()==3) {
+				if(flagged.contains(i)) {
+					flagged.remove(new Integer(i));
+					//TODO: adjust m in status bar by -=1
+				}
+				else {
+					flagged.add(i);
+					//TODO: adjust m in status bar by +=1
+				}
+				visualizeComponents();
 			}
 			else {
-				flagged.add(i);
-				//TODO: adjust m in status bar by +=1
-			}
-			visualizeComponents();
-		}
-		else {
-			if(!flagged.contains(i))
-			{
-				click(i);
-				visualizeComponents();
-				//repaint();
+				if(!flagged.contains(i))
+				{
+					click(i);
+					visualizeComponents();
+					//repaint();
+				}
 			}
 		}
 	}

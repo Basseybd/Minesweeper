@@ -27,5 +27,6 @@ public class MainFrame extends JFrame {
         
         System.out.print(i.getIconWidth());
         setVisible(true);
+        setResizable(false);
     }
 }
