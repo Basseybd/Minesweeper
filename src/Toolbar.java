@@ -7,6 +7,7 @@ import java.awt.event.ItemEvent;
 public class Toolbar extends JPanel implements ActionListener {
     private JLabel difficultyLabel;
     private JButton restart;
+    private JButton controls;
     private ButtonListener buttonListener;
     private ComboBoxListener comboBoxListener;
 
@@ -31,14 +32,17 @@ public class Toolbar extends JPanel implements ActionListener {
 
         //add buttons
         restart = new JButton("Restart");
+        controls = new JButton("Controls");
         add(difficultyLabel);
         add(difficultyComboBox);
         add(smiley);
         add(restart);
+        add(controls);
 
         //add listeners to the button
         difficultyComboBox.addItemListener(this::itemStateChanged);
         restart.addActionListener(this);
+        controls.addActionListener(this);
 
     }
 

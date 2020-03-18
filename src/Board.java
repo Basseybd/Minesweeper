@@ -241,7 +241,6 @@ public class Board extends JPanel implements ActionListener {
 				else if(board[i]<0)
 					board[i]-=CLICK;
 			}
-
 			//GAME OVER
 		}
 		else if(board[coord]>=0&&board[coord]<10) {
@@ -259,7 +258,17 @@ public class Board extends JPanel implements ActionListener {
 			System.out.print("WIN");
 			gameover=true;
 			isWin=true;
+			JOptionPane.showMessageDialog(null,
+					"CONGRATULATIONS YOU WIN",
+					"CONGRATULATIONS YOU WIN",
+					JOptionPane.PLAIN_MESSAGE);
 			//WIN
+		}
+		if(gameover==true&&isWin==false) {
+			JOptionPane.showMessageDialog(null,
+					"GAME OVER",
+					"GAME OVER",
+					JOptionPane.PLAIN_MESSAGE);
 		}
 	}
 	
