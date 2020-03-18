@@ -2,16 +2,12 @@ import java.awt.*;
 import java.util.ArrayList;
 import java.awt.event.*;
 import java.util.Random;
-
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.Random;
-import javax.swing.ImageIcon;
-import javax.swing.JButton;
-import javax.swing.JLabel;
-import javax.swing.JPanel;
+import javax.swing.*;
 
-public class Board extends JPanel {
+public class Board extends JPanel implements ActionListener {
 	int EMPTY_UNCLICKED_CELL=0;
 	int EMPTY_CLICKED_CELL=10;
 	int UNCLICKED_MINE_CELL=-1;
@@ -23,7 +19,9 @@ public class Board extends JPanel {
 	int cols=16;
 	int totalCells=rows*cols;
 	int mines=40;
-	int minesLeft=mines;
+	int flags=0;
+	int maxFlags=mines;
+	int minesLeft=mines-flags;
 	private JLabel cell;
 	boolean gameover = false;
 	Random rand;
@@ -57,11 +55,11 @@ public class Board extends JPanel {
 				rows=16;
 				cols=30;
 				mines=99;
-
 				break;
 		}
 		totalCells=rows*cols;
-		minesLeft=mines;
+		maxFlags=mines;
+		minesLeft=mines-flags;
 		board = new int[totalCells];
 		int curr;
 		int currMines=0;
@@ -367,11 +365,12 @@ public class Board extends JPanel {
 			}
 		}
 	}
+
+	public void actionPerformed(ActionEvent event){
+		Object sourceObject = event.getSource();
+	}
+
+
+
 }
 
-/*class MyActionListener implements ActionListener
-{
-	public void actionPerformed (ActionEvent e)
-	{
-	}
-}*/

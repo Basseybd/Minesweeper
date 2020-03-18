@@ -18,9 +18,14 @@ public class MainFrame extends JFrame {
             difficulty = text;
         }
 
+
+        //TODO change fake values
+        boolean stopscore = false;
+        int RemainingMines = 4;
+
         setLayout(new BorderLayout());
         toolBar = new Toolbar(difficulty);
-        statusBar = new StatusBar();
+        statusBar = new StatusBar(stopscore,RemainingMines);
         Board Minesweeper = new Board(difficulty);
         Minesweeper.visualizeComponents();
 
@@ -33,6 +38,7 @@ public class MainFrame extends JFrame {
             }
         });
 
+        //Todo add a confirmation pop-up
         toolBar.setButtonListener(new ButtonListener() {
             @Override
             public void buttonClicked(String text) {

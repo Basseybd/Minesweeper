@@ -14,38 +14,35 @@ public class Toolbar extends JPanel implements ActionListener {
     public Toolbar(String difficultly){
         //flow layout for the tool bar
         setLayout(new FlowLayout(FlowLayout.LEFT));
-       //setLayout(new FlowLayout());
 
+        //add labels
         difficultyLabel = new JLabel("Difficulty:");
-        //Difficulty combo box
+
+        //add comboBox for difficulty
         String[] difficulties = { "Easy", "Normal", "Hard" };
         JComboBox difficultyComboBox = new JComboBox(difficulties);
         difficultyComboBox.setSelectedItem((Object)difficultly);
-        difficultyComboBox.addItemListener(this::itemStateChanged);
 
 
         //add smiley face button
         JButton smiley = new JButton(new ImageIcon("./Images/smile.png"));
         smiley.setRolloverEnabled(true);
-        //smiley.addActionListener();
         smiley.setRolloverIcon(new ImageIcon("./Images/shock.png"));
 
-        //restart button
+        //add buttons
         restart = new JButton("Restart");
-
-
         add(difficultyLabel);
         add(difficultyComboBox);
         add(smiley);
         add(restart);
 
         //add listeners to the button
-        difficultyComboBox.addActionListener(this);
+        difficultyComboBox.addItemListener(this::itemStateChanged);
         restart.addActionListener(this);
 
     }
 
-    //
+    //add functions to set listeners
     public void setButtonListener(ButtonListener listener){
         this.buttonListener = listener;
     }
@@ -54,7 +51,7 @@ public class Toolbar extends JPanel implements ActionListener {
         this.comboBoxListener = listener;
     }
 
-
+    //button actions listener
     public void actionPerformed(ActionEvent event){
         Object sourceObject = event.getSource();
         JButton button = (JButton)sourceObject;
@@ -65,6 +62,7 @@ public class Toolbar extends JPanel implements ActionListener {
         }
     }
 
+    //comboBox state changed listener
     public void itemStateChanged(ItemEvent event){
         if(event.getStateChange() == ItemEvent.SELECTED){
             Object sourceObject = event.getSource();
