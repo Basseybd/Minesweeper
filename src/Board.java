@@ -22,6 +22,7 @@ public class Board extends JPanel implements ActionListener {
 	int flags=0;
 	int maxFlags=mines;
 	int minesLeft=mines-flags;
+	boolean isWin=false;
 	private JLabel cell;
 	boolean gameover = false;
 	Random rand;
@@ -257,6 +258,7 @@ public class Board extends JPanel implements ActionListener {
 		if(unclicked==mines) {
 			System.out.print("WIN");
 			gameover=true;
+			isWin=true;
 			//WIN
 		}
 	}
@@ -358,13 +360,13 @@ public class Board extends JPanel implements ActionListener {
 				if(flagged.contains(i)) {
 					flagged.remove(new Integer(i));
 					flags -= 1;
-					MouseClickedListener.remainingMines(gameover,minesLeft);
+					MouseClickedListener.remainingMines(gameover,minesLeft,isWin);
 					//TODO: adjust m in status bar by -=1
 				}
 				else {
 					flagged.add(i);
 					flags += 1;
-					MouseClickedListener.remainingMines(gameover,minesLeft);
+					MouseClickedListener.remainingMines(gameover,minesLeft,isWin);
 					//TODO: adjust m in status bar by +=1
 				}
 				visualizeComponents();
@@ -378,7 +380,7 @@ public class Board extends JPanel implements ActionListener {
 				}
 			}
 		}
-		MouseClickedListener.remainingMines(gameover,mines-flags);
+		MouseClickedListener.remainingMines(gameover,mines-flags,isWin);
 	}
 
 	public void printBoard() {

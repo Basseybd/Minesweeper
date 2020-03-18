@@ -52,7 +52,7 @@ public class MainFrame extends JFrame {
 
         Minesweeper.setMouseClickedListener(new MouseClickedListener() {
             @Override
-            public void remainingMines(boolean stopScore,int RemainingMines) {
+            public void remainingMines(boolean stopScore,int RemainingMines,boolean iswin) {
                 System.out.print("\n Stop please in mainframe \n" + stopScore + RemainingMines);
                 statusBar.update(stopScore,RemainingMines);
             }
