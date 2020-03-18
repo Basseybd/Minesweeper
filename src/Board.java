@@ -239,7 +239,7 @@ public class Board extends JPanel implements ActionListener {
 				else if(board[i]<0)
 					board[i]-=CLICK;
 			}
-			
+			//MouseClickedListener.remainingMines(gameover,flags);
 			//GAME OVER
 		}
 		else if(board[coord]>=0&&board[coord]<10) {

@@ -52,10 +52,10 @@ public class MainFrame extends JFrame {
 
         Minesweeper.setMouseClickedListener(new MouseClickedListener() {
             @Override
-            public void remainingMines(boolean stopscore,int RemainingMines) {
+            public void remainingMines(boolean stopScore,int RemainingMines) {
                 setVisible(false);
                 dispose();
-                statusBar = new StatusBar(stopscore,RemainingMines);
+                statusBar = new StatusBar(stopScore,RemainingMines);
             }
         });
 
