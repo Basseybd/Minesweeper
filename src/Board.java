@@ -256,6 +256,7 @@ public class Board extends JPanel implements ActionListener {
 		}
 		if(unclicked==mines) {
 			System.out.print("WIN");
+			gameover=true;
 			//WIN
 		}
 	}
@@ -377,7 +378,7 @@ public class Board extends JPanel implements ActionListener {
 				}
 			}
 		}
-		MouseClickedListener.remainingMines(gameover,flags);
+		MouseClickedListener.remainingMines(gameover,mines-flags);
 	}
 
 	public void printBoard() {

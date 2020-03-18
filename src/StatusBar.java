@@ -51,11 +51,12 @@ public class StatusBar extends JPanel {
     }
 
     public void update(boolean stopScore,int remainingMinesUpdate){
+
+        remainingMines= remainingMinesUpdate;
         if (stopScore) {
             System.out.print("\n Stop please in stop score condition \n");
             timer.stop();
         }
-        remainingMines= remainingMinesUpdate;
     }
 
     class ClockListener implements ActionListener {
