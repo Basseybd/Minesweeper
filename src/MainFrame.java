@@ -3,6 +3,7 @@ import java.awt.*;
 
 public class MainFrame extends JFrame {
 
+    private Board Minesweeper;
     private Toolbar toolBar;
     private StatusBar statusBar;
     private String difficulty;
@@ -26,7 +27,7 @@ public class MainFrame extends JFrame {
         setLayout(new BorderLayout());
         toolBar = new Toolbar(difficulty);
         statusBar = new StatusBar(stopscore,RemainingMines);
-        Board Minesweeper = new Board(difficulty);
+        Minesweeper = new Board(difficulty);
         Minesweeper.visualizeComponents();
 
         toolBar.setComboBoxListener(new ComboBoxListener() {
@@ -47,6 +48,17 @@ public class MainFrame extends JFrame {
                 new MainFrame(difficulty);
             }
         });
+
+
+        Minesweeper.setMouseClickedListener(new MouseClickedListener() {
+            @Override
+            public void remainingMines(boolean stopscore,int RemainingMines) {
+                setVisible(false);
+                dispose();
+                statusBar = new StatusBar(stopscore,RemainingMines);
+            }
+        });
+
 
         //adding components to layout
         add(toolBar, BorderLayout.NORTH);

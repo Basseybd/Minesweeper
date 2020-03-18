@@ -25,6 +25,7 @@ public class Board extends JPanel implements ActionListener {
 	private JLabel cell;
 	boolean gameover = false;
 	Random rand;
+	private MouseClickedListener MouseClickedListener;
 
 	public int getsize() {return cols;}
 	
@@ -332,16 +333,23 @@ public class Board extends JPanel implements ActionListener {
 			}*/
 		}
 	}
-	
+	public void setMouseClickedListener(MouseClickedListener listener){
+		this.MouseClickedListener = listener;
+	}
+
 	public void fieldClick(int i, MouseEvent e) {
 		if(board[i]>-2&&board[i]<10) {
 			if(e.getButton()==3) {
 				if(flagged.contains(i)) {
 					flagged.remove(new Integer(i));
+					flags -= 1;
+					MouseClickedListener.remainingMines(gameover,flags);
 					//TODO: adjust m in status bar by -=1
 				}
 				else {
 					flagged.add(i);
+					flags += 1;
+					MouseClickedListener.remainingMines(gameover,flags);
 					//TODO: adjust m in status bar by +=1
 				}
 				visualizeComponents();
@@ -368,6 +376,7 @@ public class Board extends JPanel implements ActionListener {
 
 	public void actionPerformed(ActionEvent event){
 		Object sourceObject = event.getSource();
+
 	}
 
 
