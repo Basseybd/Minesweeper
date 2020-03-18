@@ -20,15 +20,15 @@ public class MainFrame extends JFrame {
         }
 
 
-        //TODO change fake values
-        boolean stopscore = false;
-        int RemainingMines = 4;
-
         setLayout(new BorderLayout());
         toolBar = new Toolbar(difficulty);
-        statusBar = new StatusBar(stopscore,RemainingMines);
         Minesweeper = new Board(difficulty);
         Minesweeper.visualizeComponents();
+
+        boolean stopScore = Minesweeper.gameover;
+        int RemainingMines = Minesweeper.mines;
+
+        statusBar = new StatusBar(stopScore,RemainingMines);
 
         toolBar.setComboBoxListener(new ComboBoxListener() {
             @Override
@@ -53,9 +53,8 @@ public class MainFrame extends JFrame {
         Minesweeper.setMouseClickedListener(new MouseClickedListener() {
             @Override
             public void remainingMines(boolean stopScore,int RemainingMines) {
-                setVisible(false);
-                dispose();
-                statusBar = new StatusBar(stopScore,RemainingMines);
+                System.out.print("\n Stop please in mainframe \n" + stopScore + RemainingMines);
+                statusBar.update(stopScore,RemainingMines);
             }
         });
 

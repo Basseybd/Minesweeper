@@ -59,6 +59,7 @@ public class Board extends JPanel implements ActionListener {
 				mines=99;
 				break;
 		}
+		flags=0;
 		totalCells=rows*cols;
 		maxFlags=mines;
 		minesLeft=mines-flags;
@@ -239,7 +240,7 @@ public class Board extends JPanel implements ActionListener {
 				else if(board[i]<0)
 					board[i]-=CLICK;
 			}
-			//MouseClickedListener.remainingMines(gameover,flags);
+
 			//GAME OVER
 		}
 		else if(board[coord]>=0&&board[coord]<10) {
@@ -253,9 +254,10 @@ public class Board extends JPanel implements ActionListener {
 			if(board[i]<10)
 				unclicked++;
 		}
-		if(unclicked==mines)
+		if(unclicked==mines) {
 			System.out.print("WIN");
 			//WIN
+		}
 	}
 	
 	public void visualizeComponents(){
@@ -355,13 +357,13 @@ public class Board extends JPanel implements ActionListener {
 				if(flagged.contains(i)) {
 					flagged.remove(new Integer(i));
 					flags -= 1;
-					MouseClickedListener.remainingMines(gameover,flags);
+					MouseClickedListener.remainingMines(gameover,minesLeft);
 					//TODO: adjust m in status bar by -=1
 				}
 				else {
 					flagged.add(i);
 					flags += 1;
-					MouseClickedListener.remainingMines(gameover,flags);
+					MouseClickedListener.remainingMines(gameover,minesLeft);
 					//TODO: adjust m in status bar by +=1
 				}
 				visualizeComponents();
@@ -375,6 +377,7 @@ public class Board extends JPanel implements ActionListener {
 				}
 			}
 		}
+		MouseClickedListener.remainingMines(gameover,flags);
 	}
 
 	public void printBoard() {

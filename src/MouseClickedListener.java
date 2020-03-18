@@ -1,3 +1,3 @@
 public interface MouseClickedListener {
-    void remainingMines(boolean stopscore, int flags);
+    void remainingMines(boolean stopScore, int mines);
 }

@@ -9,6 +9,8 @@ public class StatusBar extends JPanel {
     private JLabel mines;
     private JLabel currentScore;
     private int score;
+    private Timer timer;
+    private int remainingMines;
 
     //TODO fix this
     /** Returns an ImageIcon, or null if the path was invalid. */
@@ -24,15 +26,15 @@ public class StatusBar extends JPanel {
         }
     }
 
-    public StatusBar(boolean stopScore,int remainingMines){
+    public StatusBar(boolean stopScore,int remainingMinesUpdate){
         ImageIcon bomb = new ImageIcon("Images/bomb.png", "Bomb placeholder for smile");
         //adding status labels
-        Timer timer = new Timer(1000, new ClockListener());
+        remainingMines=remainingMinesUpdate;
+        timer = new Timer(1000, new ClockListener());
         timer.setInitialDelay(1);
         timer.start();
-        if (stopScore == true) {
-            timer.stop();
-        }
+
+        System.out.print("\n Stop please in statue bar\n");
 
         currentScore = new JLabel("Score " +  timer);
         smiley = new JLabel(bomb);
@@ -48,10 +50,19 @@ public class StatusBar extends JPanel {
 
     }
 
+    public void update(boolean stopScore,int remainingMinesUpdate){
+        if (stopScore) {
+            System.out.print("\n Stop please in stop score condition \n");
+            timer.stop();
+        }
+        remainingMines= remainingMinesUpdate;
+    }
+
     class ClockListener implements ActionListener {
         public void actionPerformed(ActionEvent e) {
             score = score + 1;
             currentScore.setText("Score " + score);
+            mines.setText("Mines: "+ remainingMines);
         }
     }
 }
