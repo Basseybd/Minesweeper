@@ -5,15 +5,42 @@ public class MainFrame extends JFrame {
 
     private Toolbar toolBar;
     private StatusBar statusBar;
+    private String difficulty;
 
-    public MainFrame (){
+    public MainFrame (String text){
         super("Minesweeper");
 
+        if (text == "None"){
+            difficulty = "Normal";
+        }
+        else
+        {
+            difficulty = text;
+        }
+
         setLayout(new BorderLayout());
-        toolBar = new Toolbar();
+        toolBar = new Toolbar(difficulty);
         statusBar = new StatusBar();
-        Board Minesweeper = new Board();
+        Board Minesweeper = new Board(difficulty);
         Minesweeper.visualizeComponents();
+
+        toolBar.setComboBoxListener(new ComboBoxListener() {
+            @Override
+            public void difficultySelected(String text) {
+                setVisible(false);
+                dispose();
+                new MainFrame(text);
+            }
+        });
+
+        toolBar.setButtonListener(new ButtonListener() {
+            @Override
+            public void buttonClicked(String text) {
+                setVisible(false);
+                dispose();
+                new MainFrame(difficulty);
+            }
+        });
 
         //adding components to layout
         add(toolBar, BorderLayout.NORTH);

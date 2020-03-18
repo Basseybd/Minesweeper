@@ -2,23 +2,26 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.ItemEvent;
 
 public class Toolbar extends JPanel implements ActionListener {
-    private JLabel difficulty;
+    private JLabel difficultyLabel;
     private JButton restart;
-    private StringListener textListener;
+    private ButtonListener buttonListener;
+    private ComboBoxListener comboBoxListener;
 
-    public Toolbar(){
+
+    public Toolbar(String difficultly){
         //flow layout for the tool bar
         setLayout(new FlowLayout(FlowLayout.LEFT));
        //setLayout(new FlowLayout());
 
-        difficulty = new JLabel("Difficulty:");
+        difficultyLabel = new JLabel("Difficulty:");
         //Difficulty combo box
         String[] difficulties = { "Easy", "Normal", "Hard" };
         JComboBox difficultyComboBox = new JComboBox(difficulties);
-        difficultyComboBox.setSelectedIndex(2);
-        difficultyComboBox.addActionListener(this);
+        difficultyComboBox.setSelectedItem((Object)difficultly);
+        difficultyComboBox.addItemListener(this::itemStateChanged);
 
 
         //add smiley face button
@@ -31,7 +34,7 @@ public class Toolbar extends JPanel implements ActionListener {
         restart = new JButton("Restart");
 
 
-        add(difficulty);
+        add(difficultyLabel);
         add(difficultyComboBox);
         add(smiley);
         add(restart);
@@ -43,19 +46,32 @@ public class Toolbar extends JPanel implements ActionListener {
     }
 
     //
-    public void setStringListener(StringListener listener){
-        this.textListener = listener;
+    public void setButtonListener(ButtonListener listener){
+        this.buttonListener = listener;
     }
 
-    @Override
-    public void actionPerformed(ActionEvent e) {
-        JButton clicked = (JButton) e.getSource();
+    public void setComboBoxListener(ComboBoxListener listener){
+        this.comboBoxListener = listener;
+    }
 
-        if(textListener != null){
-           if(clicked == restart)
-           {
-               textListener.textEmitted("Restart game");
-           }
+
+    public void actionPerformed(ActionEvent event){
+        Object sourceObject = event.getSource();
+        JButton button = (JButton)sourceObject;
+        Object clickedButton = button.getText();
+        if (buttonListener != null){
+            buttonListener.buttonClicked(clickedButton.toString());
+
+        }
+    }
+
+    public void itemStateChanged(ItemEvent event){
+        if(event.getStateChange() == ItemEvent.SELECTED){
+            Object sourceObject = event.getSource();
+            JComboBox comboBox = (JComboBox)sourceObject;
+            Object selected = comboBox.getSelectedItem();
+            System.out.println(comboBox.getSelectedItem()+" test");
+            comboBoxListener.difficultySelected(selected.toString());
         }
     }
 }

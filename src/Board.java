@@ -27,12 +27,12 @@ public class Board extends JPanel {
 	private JLabel cell;
 	boolean gameover = false;
 	Random rand;
-	
+
 	public int getsize() {return cols;}
 	
-	public Board() {
+	public Board(String difficulty) {
 		rand = new Random();
-		initializeBoard();
+		initializeBoard(difficulty);
 		flagged = new ArrayList<Integer>();
 		setBackground(new Color(185,185,185)); 
 	}
@@ -41,7 +41,27 @@ public class Board extends JPanel {
 		return board;
 	}
 	
-	public void initializeBoard() {
+	public void initializeBoard(String difficulty) {
+		switch(difficulty){
+			case "Easy":
+				rows=16;
+				cols=9;
+				mines=10;
+				break;
+			case "Normal":
+				rows=16;
+				cols=16;
+				mines=40;
+				break;
+			case "Hard":
+				rows=16;
+				cols=30;
+				mines=99;
+
+				break;
+		}
+		totalCells=rows*cols;
+		minesLeft=mines;
 		board = new int[totalCells];
 		int curr;
 		int currMines=0;
