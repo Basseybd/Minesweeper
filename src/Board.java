@@ -26,7 +26,8 @@ public class Board extends JPanel implements ActionListener {
 	boolean gameover = false;
 	Random rand;
 
-	public int getsize() {return cols;}
+	public int getcols() {return cols;}
+	public int getrows() {return rows;}
 	
 	public Board(String difficulty) {
 		rand = new Random();
@@ -42,7 +43,7 @@ public class Board extends JPanel implements ActionListener {
 	public void initializeBoard(String difficulty) {
 		switch(difficulty){
 			case "Easy":
-				rows=16;
+				rows=9;
 				cols=9;
 				mines=10;
 				break;
@@ -145,7 +146,7 @@ public class Board extends JPanel implements ActionListener {
 		curr = coord - cols - 1;
 		if (col > 0) {
 	        if (curr >= 0) {
-	            if (board[curr] > UNCLICKED_MINE_CELL) {
+	            if (board[curr] > UNCLICKED_MINE_CELL&&board[curr]<10) {
 	                board[curr] += CLICK;
 	                if (board[curr] == EMPTY_CLICKED_CELL) {
 	                    uncoverFreeCells(curr);
@@ -155,7 +156,7 @@ public class Board extends JPanel implements ActionListener {
 	
 	        curr = coord - 1;
 	        if (curr >= 0) {
-	            if (board[curr] > UNCLICKED_MINE_CELL) {
+	            if (board[curr] > UNCLICKED_MINE_CELL&&board[curr]<10) {
 	                board[curr] += CLICK;
 	                if (board[curr] == EMPTY_CLICKED_CELL) {
 	                    uncoverFreeCells(curr);
@@ -165,7 +166,7 @@ public class Board extends JPanel implements ActionListener {
 	
 	        curr = coord + cols - 1;
 	        if (curr < totalCells) {
-	            if (board[curr] > UNCLICKED_MINE_CELL) {
+	            if (board[curr] > UNCLICKED_MINE_CELL&&board[curr]<10) {
 	                board[curr] += CLICK;
 	                if (board[curr] == EMPTY_CLICKED_CELL) {
 	                    uncoverFreeCells(curr);
@@ -176,7 +177,7 @@ public class Board extends JPanel implements ActionListener {
 	
 	    curr = coord - cols;
 	    if (curr >= 0) {
-	        if (board[curr] > UNCLICKED_MINE_CELL) {
+	        if (board[curr] > UNCLICKED_MINE_CELL&&board[curr]<10) {
 	            board[curr] += CLICK;
 	            if (board[curr] == EMPTY_CLICKED_CELL) {
 	                uncoverFreeCells(curr);
@@ -186,7 +187,7 @@ public class Board extends JPanel implements ActionListener {
 	
 	    curr = coord + cols;
 	    if (curr < totalCells) {
-	        if (board[curr] > UNCLICKED_MINE_CELL) {
+	        if (board[curr] > UNCLICKED_MINE_CELL&&board[curr]<10) {
 	            board[curr] += CLICK;
 	            if (board[curr] == EMPTY_CLICKED_CELL) {
 	                uncoverFreeCells(curr);
@@ -197,7 +198,7 @@ public class Board extends JPanel implements ActionListener {
 	    if (col < (cols - 1)) {
 	        curr = coord - cols + 1;
 	        if (curr >= 0) {
-	            if (board[curr] > UNCLICKED_MINE_CELL) {
+	            if (board[curr] > UNCLICKED_MINE_CELL&&board[curr]<10) {
 	                board[curr] += CLICK;
 	                if (board[curr] == EMPTY_CLICKED_CELL) {
 	                    uncoverFreeCells(curr);
@@ -207,7 +208,7 @@ public class Board extends JPanel implements ActionListener {
 	
 	        curr = coord + cols + 1;
 	        if (curr < totalCells) {
-	            if (board[curr] > UNCLICKED_MINE_CELL) {
+	            if (board[curr] > UNCLICKED_MINE_CELL&&board[curr]<10) {
 	                board[curr] += CLICK;
 	                if (board[curr] == EMPTY_CLICKED_CELL) {
 	                    uncoverFreeCells(curr);
@@ -217,7 +218,7 @@ public class Board extends JPanel implements ActionListener {
 	
 	        curr = coord + 1;
 	        if (curr < totalCells) {
-	            if (board[curr] > UNCLICKED_MINE_CELL) {
+	            if (board[curr] > UNCLICKED_MINE_CELL&&board[curr]<10) {
 	                board[curr] += CLICK;
 	                if (board[curr] == EMPTY_CLICKED_CELL) {
 	                    uncoverFreeCells(curr);
@@ -242,7 +243,18 @@ public class Board extends JPanel implements ActionListener {
 		}
 		else if(board[coord]>=0&&board[coord]<10) {
 			board[coord]+=CLICK;
+			if(board[coord]==EMPTY_CLICKED_CELL) {
+				uncoverFreeCells(coord);
+			}
 		}
+		int unclicked=0;
+		for(int i=0;i<rows*cols;i++) {
+			if(board[i]<10)
+				unclicked++;
+		}
+		if(unclicked==mines)
+			System.out.print("WIN");
+			//WIN
 	}
 	
 	public void visualizeComponents(){
